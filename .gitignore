@@ -32,3 +32,6 @@ bower_components/
 .floobit
 .floo
 .flooignore
+
+# google map API key
+key.js

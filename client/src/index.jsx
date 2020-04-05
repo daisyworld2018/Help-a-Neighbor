@@ -14,7 +14,7 @@ class App extends React.Component {
 
   render () {
     return (<div>
-      <h1>Help My Neighbor</h1>
+      <h1>Help a neighbor in need during COVID-19 </h1>
       <Navigation />
       <h4 id='title'> Search helpers/seekser near you </h4>
       <Search />

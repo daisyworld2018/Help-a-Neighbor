@@ -1,5 +1,5 @@
 body {
-  margin: 5px;
+  margin: 5px, 20px, 5px, 20px;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 .topnav {
@@ -22,7 +22,7 @@ body {
 }
 
 .topnav a.active {
-  background-color: #4CAF50;
+  background-color: rgb(76, 160, 175);
   color: white;
 }
 
@@ -34,7 +34,7 @@ body {
   font-size: 17px;
   border: none;
   cursor: pointer;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
 }
 
 .search-container input[type=text] {
@@ -56,6 +56,7 @@ body {
   border-collapse: collapse;
   border: 3px solid #ddd;
   width: 100%;
+  margin: 20px;
 }
 
 #seekers td, #seekers th {
@@ -71,7 +72,7 @@ body {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color:rgb(235, 149, 51);
+  background-color: rgb(196, 91, 100);
   color: white;
 }
 
@@ -82,6 +83,7 @@ body {
   border-collapse: collapse;
   border: 3px solid #ddd;
   width: 100%;
+  margin: 20px;
 }
 
 #helpers td, #helpers th {
@@ -97,8 +99,25 @@ body {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color:  #4CAF50;
+  background-color:  rgb(76, 160, 175);
   color: white;
 }
 
+#map {
+  height: 50%;
+  margin: 100px;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 20px;
+}
 
+#legend {
+  font-size: 11px;
+  background:  rgb(251, 252, 252);
+  padding: 5px;
+  margin: 10px;
+  height: 65px;
+  width: 65px
+}

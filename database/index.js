@@ -4,7 +4,7 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'GroomMyDog'
+  database : 'HelpMyNeighbors'
 });
 
 connection.connect(function(err) {
@@ -12,8 +12,8 @@ connection.connect(function(err) {
   console.log("Connected!");
 });
 
-var selectAll = function(callback) {
-  connection.query('SELECT * FROM groomers', function(err, results, fields) {
+const selectAllSeekers = function(location, callback) {
+  connection.query('SELECT * FROM seekers LIMIT 3', function(err, results, fields) {
     if(err) {
       callback(err, null);
     } else {
@@ -22,8 +22,8 @@ var selectAll = function(callback) {
   });
 };
 
-var selectLocation = function(location, callback) {
-  connection.query('SELECT * FROM groomers WHERE location_city = ? AND location_state = ?',[location.city, location.state], function(err, results, fields) {
+const selectSeekers = function(location, callback) {
+  connection.query('SELECT * FROM seekers WHERE zip_code = ?', [location.zip], function(err, results, fields) {
     if(err) {
       callback(err, null);
     } else {
@@ -32,5 +32,27 @@ var selectLocation = function(location, callback) {
   });
 };
 
-module.exports.selectAll = selectAll;
-module.exports.selectLocation = selectLocation;
+const selectAllHelpers = function(location, callback) {
+  connection.query('SELECT * FROM helpers LIMIT 3', function(err, results, fields) {
+    if(err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+const selectHelpers = function(location, callback) {
+  connection.query('SELECT * FROM helpers WHERE zip_code = ?', [location.zip], function(err, results, fields) {
+    if(err) {
+      callback(err, null);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+module.exports.selectSeekers = selectSeekers;
+module.exports.selectHelpers = selectHelpers;
+module.exports.selectAllSeekers = selectAllSeekers;
+module.exports.selectAllHelpers = selectAllHelpers;

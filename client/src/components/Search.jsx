@@ -1,11 +1,13 @@
 import React from 'react';
 import $ from 'jquery';
+//import Map from './Map.jsx'
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchItems: []
+      searchHelpers: [],
+      searchSeekers: []
     }
     this.onSubmit = this.onSubmit.bind(this);
     this.renderTable1Data = this.renderTable1Data.bind(this);
@@ -16,10 +18,22 @@ class Search extends React.Component {
 
   componentDidMount() {
     $.ajax({
-      url: '/items',
+      url: 'http://localhost:8080/helpers',
       success: (data) => {
         this.setState({
-          searchItems: data
+          searchHelpers: data
+        })
+      },
+      error: (err) => {
+        console.log('err', err);
+      }
+    });
+
+    $.ajax({
+      url: 'http://localhost:8080/seekers',
+      success: (data) => {
+        this.setState({
+          searchSeekers: data
         })
       },
       error: (err) => {
@@ -29,16 +43,14 @@ class Search extends React.Component {
   }
 
   onSubmit() {
-    let city = document.getElementById("searchCity").value;
-    let state = document.getElementById("searchState").value;
-    console.log(city, state)
+    let zip = document.getElementById("searchZip").value;
     $.ajax({
       method: "POST",
-      url: '/helpers',
-      data: { city, state },
+      url: 'http://localhost:8080/helpers',
+      data: { zip },
       success: (data) => {
         this.setState({
-          searchItems: data
+          searchHelpers: data
         })
         console.log(data);
       },
@@ -49,11 +61,11 @@ class Search extends React.Component {
 
     $.ajax({
       method: "POST",
-      url: '/helpers',
-      data: { city, state },
+      url: 'http://localhost:8080/seekers',
+      data: { zip },
       success: (data) => {
         this.setState({
-          searchItems: data
+          searchSeekers: data
         })
         console.log(data);
       },
@@ -64,11 +76,11 @@ class Search extends React.Component {
   }
 
   renderTable1Data() {
-    return this.state.searchItems.map((item, index) => {
-       const { id, name, location_city, location_state, zip_code, contact_info, i_can, notes } = item
+    return this.state.searchHelpers.map((item, index) => {
+       const { id, username, location_city, location_state, zip_code, contact_info, i_can, notes } = item
        return (
           <tr key={id}>
-             <td>{name}</td>
+             <td>{username}</td>
              <td>{location_city}</td>
              <td>{location_state}</td>
              <td>{zip_code}</td>
@@ -81,11 +93,11 @@ class Search extends React.Component {
   }
 
   renderTable2Data() {
-    return this.state.searchItems.map((item, index) => {
-       const { id, name, location_city, location_state, zip_code, contact_info, i_need, notes } = item
+    return this.state.searchSeekers.map((item, index) => {
+       const { id, username, location_city, location_state, zip_code, contact_info, i_need, notes } = item
        return (
           <tr key={id}>
-             <td>{name}</td>
+             <td>{username}</td>
              <td>{location_city}</td>
              <td>{location_state}</td>
              <td>{zip_code}</td>
@@ -113,13 +125,13 @@ class Search extends React.Component {
 
   render () {
     return (
-      <div className="search-container">
-        <form onSubmit={this.onSubmit} >
-          <input type="text" placeholder="e.g. San Francisco" id="searchCity"></input>
-          <input type="text" placeholder="e.g. CA" id="searchState"></input>
-          <input type="text" placeholder="e.g. 94403" id="searchZipCode"></input>
-          <button type="submit">Search</button>
-        </form>
+      <div>
+        <div className="search-container">
+          <form onSubmit={this.onSubmit} >
+            <input type="text" placeholder="e.g. 94403" id="searchZip"></input>
+            <button type="submit">Search</button>
+          </form>
+        </div >
         <div>Helpers:
           <table id='helpers'>
             <tbody>
@@ -142,3 +154,4 @@ class Search extends React.Component {
   }
 }
 export default Search;
+//        <Map />
